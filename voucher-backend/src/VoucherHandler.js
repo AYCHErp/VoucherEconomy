@@ -21,16 +21,15 @@ class VoucherHandler {
     return this._provider;
   }
 
-  async getBalance(did) {
-    const addr = this._didToAddr(did);
-    return (await this._token.balances(addr)).toString();
+  async getBalance(address) {
+    return (await this._token.balances(address)).toString();
   }
 
   // takes amts = [{ user, amt }]
+  // TODO: improve sequencing here
   async mint(amts = []) {
     for (const user of amts) {
-      const addr = this._didToAddr(user.did);
-      await this._token.mint(addr, user.amt)
+      await this._token.mint(user.address, user.amt)
     }
     return true;
   }

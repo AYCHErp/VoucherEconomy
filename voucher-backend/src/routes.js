@@ -20,17 +20,18 @@ let routes = [];
 
 routes.push({
   method: "GET",
-  path: baseRoute + "/balance/{did}",
+  path: baseRoute + "/balance/{address}",
   handler: async (request, h) => {
     try {
-      const did = request.params.did;
-      return await voucherHandler.getBalance(did);
+      const address = request.params.address;
+      return await voucherHandler.getBalance(address);
     } catch (err) {
       console.log(err);
       throw(err);
     }
   }
 });
+
 
 routes.push({
   method: "POST",
