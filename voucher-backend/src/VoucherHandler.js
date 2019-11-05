@@ -34,6 +34,10 @@ class VoucherHandler {
     return true;
   }
 
+  async getBurnNonce(address) {
+    return (await this._token.burnNonces(address)).toString();
+  }
+
   // takes amts = [{ user, amt }]
   async burn(amts = []) {
     for (const user of amts) {

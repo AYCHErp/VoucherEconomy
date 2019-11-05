@@ -48,6 +48,24 @@ routes.push({
 });
 
 routes.push({
+  method: "GET",
+  path: baseRoute + "/nonce/{address}",
+  handler: async (request, h) => {
+    try {
+      const address = request.params.address;
+      return await voucherHandler.getBurnNonce(address);
+    } catch (err) {
+      console.log(err);
+      throw(err);
+    }
+  }
+});
+
+// TODO:
+// - meta and non-meta burn routes
+// - update wallet implementation
+
+routes.push({
   method: "POST",
   path: baseRoute + "/redeem",
   handler: async (request, h) => {
