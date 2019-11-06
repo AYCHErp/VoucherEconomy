@@ -3,11 +3,13 @@ const { expect } = require("chai");
 
 const VoucherToken = artifacts.require("VoucherToken");
 
-contract("VoucherToken", function([any, root]) {
-  const name = "name";
-  const symbol = "FOO";
+contract("VoucherToken", function([any, root, user]) {
 
   beforeEach("deploy contracts", async () => {
+    this.name = "name";
+    this.symbol = "FOO";
+    this.tag = web3.utils.keccak256("foo");
+
     this.token = await VoucherToken.new(name, symbol, {from: root});
   });
 
@@ -17,8 +19,8 @@ contract("VoucherToken", function([any, root]) {
     });
 
     it("should properly set constructor arguments", async () => {
-      expect(await this.token.name()).to.eq(name);
-      expect(await this.token.symbol()).to.eq(symbol);
+      expect(await this.token.name()).to.eq(this.name);
+      expect(await this.token.symbol()).to.eq(this.symbol);
     });
   });
 
@@ -27,14 +29,14 @@ contract("VoucherToken", function([any, root]) {
 
     it("should fail unless called by owner", async () => {
       await expectRevert(
-        this.token.mint(any, mintAmt, {from: any}),
+        this.token.mint(any, mintAmt, this.tag, {from: any}),
         "Ownable: caller is not the owner"
       );
     });
 
     it("should update dst balance", async () => {
-      await this.token.mint(any, mintAmt, {from: root});
-      expect(await this.token.balances(any)).to.be.bignumber.eq(mintAmt);
+      await this.token.mint(user, mintAmt, this.tag, {from: root});
+      expect(await this.token.balances(user)).to.be.bignumber.eq(mintAmt);
     });
   });
 
@@ -43,26 +45,20 @@ contract("VoucherToken", function([any, root]) {
     burnAmt = new BN(50000);
 
     beforeEach("mint tokens", async () => {
-      await this.token.mint(any, mintAmt, {from: root});
-    });
-
-    it("should fail unless called by owner", async () => {
-      await expectRevert(
-        this.token.burn(any, mintAmt, {from:any}),
-        "Ownable: caller is not the owner"
-      );
+      await this.token.mint(user, mintAmt, this.tag, {from: root});
     });
 
     it("should fail if src has insufficient tokens", async () => {
       await expectRevert(
-        this.token.burn(any, mintAmt + 1, {from:root}),
+        this.token.burn(mintAmt + 1, {from:user}),
         "SafeMath: subtraction overflow"
       );
     });
 
     it("should update src balance", async () => {
-      await this.token.burn(any, burnAmt, {from:root});
-      expect(await this.token.balances(any)).to.be.bignumber.eq(mintAmt.sub(burnAmt));
+      await this.token.burn(burnAmt, {from:user});
+      expect(await this.token.balances(user)).to.be.bignumber.eq(mintAmt.sub(burnAmt));
     });
   });
+
 });

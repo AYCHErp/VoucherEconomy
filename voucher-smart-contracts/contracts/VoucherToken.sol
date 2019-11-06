@@ -12,8 +12,9 @@ contract VoucherToken is Ownable {
     // Constants
     /////
 
+    // bytes4(keccak256("metaBurn(bytes,uint256,uint256)"));
+    bytes4 public constant metaBurnSig = 0x601daa59;
     uint8 public constant decimals = 18;
-    bytes4 public constant metaBurnSig = bytes4(keccak256(abi.encodePacked("metaBurn(bytes32,uint256,uint256)")));
 
     /////
     // Storage
