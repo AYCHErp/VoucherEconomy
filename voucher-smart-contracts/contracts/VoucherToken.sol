@@ -88,13 +88,13 @@ contract VoucherToken is Ownable {
         returns (bool)
     {
         // signatures must be 65 bytes
-        require(_sig.length == 65);
+        require(_sig.length == 65, "VoucherToken: invalid sig length");
 
         // get the hash that was signed
         bytes32 hash = getBurnHash(_nonce, _amt);
 
         address signer = SigLib.recoverSig(_sig, hash);
-        require(_nonce == burnNonces[signer]);
+        require(_nonce == burnNonces[signer], "VoucherToken: invalid nonce");
         burnNonces[signer]++;
 
         _burn(signer, _amt);
