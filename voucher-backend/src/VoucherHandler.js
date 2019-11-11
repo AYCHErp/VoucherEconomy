@@ -47,10 +47,6 @@ class VoucherHandler {
     return true;
   }
 
-  _didToAddr(did) {
-    const hexDid = "0x" + Buffer.from(did).toString("hex");
-    return ethers.utils.keccak256(hexDid).slice(0, 42);
-  }
 }
 
 module.exports = exports = VoucherHandler;
