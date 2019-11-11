@@ -76,12 +76,26 @@ routes.push({
 });
 
 routes.push({
-  method: "GET",
-  path: baseRoute + "/nonce/{address}",
+  method: "POST",
+  path: baseRoute + "/batchIssue",
   handler: async (request, h) => {
     try {
-      const address = request.params.address;
-      return await voucherHandler.getBurnNonce(address);
+      const amts = JSON.parse(request.payload.issuances);
+      return await voucherHandler.batchMint(issuances);
+    } catch (err) {
+      console.log(err);
+      throw(err);
+    }
+  }
+});
+
+routes.push({
+  method: "POST",
+  path: baseRoute + "/redeem",
+  handler: async (request, h) => {
+    try {
+      const tx = JSON.parse(request.payload.tx);
+      return await voucherHandler.forwardTx(tx);
     } catch (err) {
       console.log(err);
       throw(err);
@@ -95,11 +109,11 @@ routes.push({
 
 routes.push({
   method: "POST",
-  path: baseRoute + "/redeem",
+  path: baseRoute + "/metaRedeem",
   handler: async (request, h) => {
     try {
-      const amts = JSON.parse(request.payload.amounts);
-      return await voucherHandler.burn(amts);
+      const msg = JSON.parse(request.payload.message);
+      return await voucherHandler.metaBurn(msg);
     } catch (err) {
       console.log(err);
       throw(err);
