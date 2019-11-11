@@ -25,12 +25,27 @@ class VoucherHandler {
     return (await this._token.balances(address)).toString();
   }
 
-  // takes amts = [{ user, amt }]
-  // TODO: improve sequencing here
-  async mint(amts = []) {
-    for (const user of amts) {
-      await this._token.mint(user.address, user.amt)
+  // returns promise
+  async mint(issuance) {
+    return await this._token.mint(issuance.address, issuance.amount, issuance.tag);
+  }
+
+  // takes issuances = [{ address, amount, tag }]
+  // TODO: change naming from user / amts
+  async batchMint(amts = []) {
+    var promises = [];
+    for (const issuance of issuances) {
+      promises.push(
+        this._token.mint(
+          issuance.address,
+          issuance.amount,
+          issuance.tag
+        )
+      );
     }
+
+    await Promise.all(promises);
+
     return true;
   }
 
