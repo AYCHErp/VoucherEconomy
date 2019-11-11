@@ -32,14 +32,42 @@ routes.push({
   }
 });
 
+routes.push({
+  method: "GET",
+  path: baseRoute + "/nonce/{address}",
+  handler: async (request, h) => {
+    try {
+      const address = request.params.address;
+      return await voucherHandler.getBurnNonce(address);
+    } catch (err) {
+      console.log(err);
+      throw(err);
+    }
+  }
+});
+
+routes.push({
+  method: "GET",
+  path: baseRoute + "/burnHashFromAddress/{address}/{amount}",
+  handler: async (request, h) => {
+    try {
+      const address = request.params.address;
+      const amount = request.params.amount;
+      return await voucherHandler.getBurnHashFromAddress(address, amount);
+    } catch (err) {
+      console.log(err);
+      throw(err);
+    }
+  }
+});
 
 routes.push({
   method: "POST",
   path: baseRoute + "/issue",
   handler: async (request, h) => {
     try {
-      const amts = JSON.parse(request.payload.amounts);
-      return await voucherHandler.mint(amts);
+      const issuance = JSON.parse(request.payload.issuance);
+      return await voucherHandler.mint(issuance);
     } catch (err) {
       console.log(err);
       throw(err);
