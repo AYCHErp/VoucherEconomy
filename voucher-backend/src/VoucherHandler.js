@@ -53,13 +53,22 @@ class VoucherHandler {
     return (await this._token.burnNonces(address)).toString();
   }
 
-  // takes amts = [{ user, amt }]
-  async burn(amts = []) {
-    for (const user of amts) {
-      const addr = this._didToAddr(user.did);
-      await this._token.burn(addr, user.amt)
-    }
-    return true;
+  async getBurnHash(nonce, amt) {
+    return await this._token.getBurnHash(nonce, amt);
+  }
+
+  async getBurnHashFromAddress(address, amt) {
+    const nonce = await this._token.burnNonces(address);
+    return await this._token.getBurnHash(nonce, amt);
+  }
+
+  async forwardTx(tx) {
+    return await _provider.sendTransaction(tx);
+  }
+
+  // takes msg = { signature, nonce, amount }
+  async metaBurn(msg) {
+    return await this._token.metaBurn(msg.signature, msg.nonce, msg.amount);
   }
 
 }
