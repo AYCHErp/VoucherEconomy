@@ -30,24 +30,6 @@ class VoucherHandler {
     return await this._token.mint(address, amount, tag);
   }
 
-  // takes issuances = [{ address, amount, tag }]
-  async batchMint(amts = []) {
-    var promises = [];
-    for (const issuance of issuances) {
-      promises.push(
-        this._token.mint(
-          issuance.address,
-          issuance.amount,
-          issuance.tag
-        )
-      );
-    }
-
-    await Promise.all(promises);
-
-    return true;
-  }
-
   async getBurnNonce(address) {
     return (await this._token.burnNonces(address)).toString();
   }

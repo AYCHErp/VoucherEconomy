@@ -169,37 +169,6 @@ routes.push({
   }
 });
 
-// TODO: param validation
-routes.push({
-  method: "POST",
-  path: baseRoute + "/batchIssue",
-  handler: async (request, h) => {
-    try {
-      const amts = JSON.parse(request.payload.issuances);
-      return await voucherHandler.batchMint(issuances);
-    } catch (err) {
-      console.log(err);
-      throw(err);
-    }
-  }
-});
-
-// TODO: parameter validation
-// takes a signed Ethereum transaction
-routes.push({
-  method: "POST",
-  path: baseRoute + "/redeem",
-  handler: async (request, h) => {
-    try {
-      const tx = JSON.parse(request.payload.tx);
-      return await voucherHandler.forwardTx(tx);
-    } catch (err) {
-      console.log(err);
-      throw(err);
-    }
-  }
-});
-
 routes.push({
   method: "POST",
   path: baseRoute + "/metaRedeem",
