@@ -26,12 +26,11 @@ class VoucherHandler {
   }
 
   // returns promise
-  async mint(issuance) {
-    return await this._token.mint(issuance.address, issuance.amount, issuance.tag);
+  async mint(address, amount, tag) {
+    return await this._token.mint(address, amount, tag);
   }
 
   // takes issuances = [{ address, amount, tag }]
-  // TODO: change naming from user / amts
   async batchMint(amts = []) {
     var promises = [];
     for (const issuance of issuances) {
@@ -67,8 +66,9 @@ class VoucherHandler {
   }
 
   // takes msg = { signature, nonce, amount }
-  async metaBurn(msg) {
-    return await this._token.metaBurn(msg.signature, msg.nonce, msg.amount);
+  async metaBurn(sig, nonce, amt) {
+    // return await this._token.metaBurn(msg.signature, msg.nonce, msg.amount);
+    return await this._token.metaBurn(sig, nonce, amt);
   }
 
 }
