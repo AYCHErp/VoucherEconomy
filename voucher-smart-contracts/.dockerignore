@@ -1,0 +1,10 @@
+.git/
+.idea/
+test/
+node_modules/
+qrac/
+
+.gitignore
+.dockerignore
+docker-compose*
+Dockerfile*
