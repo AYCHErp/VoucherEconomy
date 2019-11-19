@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "ethers": "^4.0.39",
+    "ganache-cli": "^6.7.0",
     "truffle": "^5.0.43"
   },
   "devDependencies": {
@@ -15,7 +16,10 @@
     "openzeppelin-test-helpers": "^0.4.3"
   },
   "scripts": {
-    "test": "npx truffle test"
+    "test": "npx truffle test",
+    "dockerize": "scripts/dockerize.sh",
+    "compile": "npx truffle compile",
+    "migrate": "npx truffle migrate --network docker"
   },
   "author": "",
   "license": "ISC"
