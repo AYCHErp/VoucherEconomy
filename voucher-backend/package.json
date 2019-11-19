@@ -5,7 +5,12 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "deps:compose": "docker-compose up -d",
+    "deps:copy": "docker cp 121-voucher-bchain:/home/node/artifacts/ . && docker cp 121-voucher-bchain:/home/node/config .",
+    "deps:start": "npm run deps:compose && npm run deps:copy",
+    "deps:close": "docker-compose down",
+    "start:devl": "node server.js",
+    "start": "npm -s run deps:start && npm -s run start:devl"
   },
   "keywords": [],
   "author": "",

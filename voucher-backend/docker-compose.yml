@@ -1,0 +1,9 @@
+version: "3.5"
+
+services:
+
+  121-voucher-bchain:
+    image: disberse/121-voucher-bchain
+    container_name: 121-voucher-bchain
+    ports:
+      - "8545:8545"
