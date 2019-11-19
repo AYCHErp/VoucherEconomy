@@ -1,0 +1,167 @@
+{
+	"info": {
+		"_postman_id": "26341039-e074-4de4-9529-1678ac9846c6",
+		"name": "voucher-economy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "voucher/balance",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://localhost:8081/voucher/balance/0x62c7187D06085Df7F0306acCB5ACf22f5ad8ed4e",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"voucher",
+						"balance",
+						"0x62c7187D06085Df7F0306acCB5ACf22f5ad8ed4e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "voucher/nonce",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/voucher/nonce/0x62c7187D06085Df7F0306acCB5ACf22f5ad8ed4e",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"voucher",
+						"nonce",
+						"0x62c7187D06085Df7F0306acCB5ACf22f5ad8ed4e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "voucher/burnHash",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/voucher/burnHash/1/500",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"voucher",
+						"burnHash",
+						"1",
+						"500"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "voucher/issue",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "issuance",
+							"value": "{ \"address\" : \"0x62c7187D06085Df7F0306acCB5ACf22f5ad8ed4e\", \"amount\" : 500, \"tag\" : \"0x41b1a0649752af1b28b3dc29a1556eee781e4a4c3a1f7f53f90fa834de098c4d\" }",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "address",
+							"value": "0x62c7187D06085Df7F0306acCB5ACf22f5ad8ed4e",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "5000",
+							"type": "text"
+						},
+						{
+							"key": "tag",
+							"value": "0x41b1a0649752af1b28b3dc29a1556eee781e4a4c3a1f7f53f90fa834de098c4d",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8081/voucher/issue",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"voucher",
+						"issue"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "voucher/metaRedeem",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "signature",
+							"value": "0x4c00f5908038b372bed1addfd80d51f37261f55afaa4424b8a2744c5e4fd83544259369f55471d0d5936561feaed0f30f2f668ae70a2ffbe5c7194a5f5face711b",
+							"type": "text"
+						},
+						{
+							"key": "nonce",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "500",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8081/voucher/metaRedeem",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"voucher",
+						"metaRedeem"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
